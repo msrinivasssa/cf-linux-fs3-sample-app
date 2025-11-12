@@ -1,0 +1,8 @@
+applications:
+  - name: fs3-sample-app-comet
+    memory: 1G
+    instances: 1
+    path: target/fs3-sample-app-1.0-SNAPSHOT.jar
+    buildpacks:
+      - java_buildpack_offline
+    stack: cflinuxfs3
