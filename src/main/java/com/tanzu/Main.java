@@ -152,7 +152,17 @@ class HelloController {
                 "    <div class=\"container\">\n" +
                 "        <div class=\"header\">\n" +
                 "            <h1><span class=\"status-indicator\"></span>Application Metrics</h1>\n" +
-                "            <p>Java on TAS (cflinuxfs3) - Real-time System Information</p>\n" +
+                "            <p>Java on TAS (<span id=\"stack-info\">Loading...</span>) - Real-time System Information</p>\n" +
+                "            <div style=\"margin-top: 15px; font-size: 0.9em; opacity: 0.85;\">\n" +
+                "                <div style=\"margin-bottom: 8px;\">\n" +
+                "                    <span>App: <strong id=\"app-name\">Loading...</strong></span>\n" +
+                "                    <span style=\"margin-left: 20px;\">Revision: <strong id=\"app-revision\" style=\"font-family: monospace; color: #ffd700;\">Loading...</strong></span>\n" +
+                "                    <span style=\"margin-left: 20px;\">Instance: <strong id=\"app-instance\">Loading...</strong></span>\n" +
+                "                </div>\n" +
+                "                <div style=\"font-size: 0.85em; opacity: 0.75;\">\n" +
+                "                    <span>Deployed: <strong id=\"app-deployed\">Loading...</strong></span>\n" +
+                "                </div>\n" +
+                "            </div>\n" +
                 "        </div>\n" +
                 "        <div id=\"error-message\" class=\"error-message\" style=\"display: none;\"></div>\n" +
                 "        <div class=\"metrics-grid\" id=\"metrics-grid\">\n" +
@@ -298,6 +308,16 @@ class HelloController {
                 "            document.getElementById('os-name').textContent = data.system.osName;\n" +
                 "            document.getElementById('os-version').textContent = data.system.osVersion;\n" +
                 "            document.getElementById('os-arch').textContent = data.system.osArch;\n" +
+                "            // Stack information\n" +
+                "            document.getElementById('stack-info').textContent = data.system.stack || 'Unknown';\n" +
+                "            // Application information\n" +
+                "            if (data.application) {\n" +
+                "                document.getElementById('app-name').textContent = data.application.name || 'N/A';\n" +
+                "                document.getElementById('app-revision').textContent = data.application.revision || 'N/A';\n" +
+                "                document.getElementById('app-instance').textContent = data.application.instance || '0';\n" +
+                "                const deployedAt = data.application.deployedAtReadable || data.application.deployedAt || 'N/A';\n" +
+                "                document.getElementById('app-deployed').textContent = deployedAt;\n" +
+                "            }\n" +
                 "        }\n" +
                 "        // Fetch metrics immediately and then every 2 seconds\n" +
                 "        fetchMetrics();\n" +
