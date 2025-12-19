@@ -5,4 +5,3 @@ applications:
     path: target/fs3-sample-app-1.0-SNAPSHOT.jar
     buildpacks:
       - java_buildpack_offline
-    stack: cflinuxfs3
